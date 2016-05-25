@@ -66,6 +66,10 @@
 							</td>
 							<td width="90%">
 								<form id="form1" action="" method="post" enctype="multipart/form-data">
+									<div  id="show_url"  style="display: none;margin-left: 10px">
+
+									</div>
+
 								<!--已经有的-->
 									<c:forEach items="${targets}" var="tar">
 										<span id="tar${tar.id}"><span style="margin-left: 10px;">${tar.targetUrl}</span><a style="margin-left: 10px;cursor: pointer" onclick="del_tar(${tar.id})">删除</a><br></span>
@@ -86,9 +90,12 @@
 							</td>
 							<td width="90%">
 								<form id="form2" action="" method="post" enctype="multipart/form-data">
+									<div id="show_img">
+
+									</div>
 									<!--已经有的-->
 									<c:forEach items="${materials}" var="mat">
-										<span id="mat${mat.id}"><span style="margin-left: 10px;"><img src="<c:url value="/upload/demoUpload/${mat.name}"/>" alt=""/></span><a style="margin-left: 10px;cursor: pointer" onclick="del_mat(${mat.id})">删除</a><br></span>
+										<span id="mat${mat.id}"><span style="margin-left: 10px;"><img width="300px" src="<c:url value="/upload/demoUpload/${mat.name}"/>" alt=""/></span><a style="margin-left: 10px;cursor: pointer" onclick="del_mat(${mat.id})">删除</a><br></span>
 									</c:forEach>
 									<!--已经有的-->
 									<div id="newUpload2" style="margin-top: 10px;">
@@ -107,12 +114,12 @@
 							<!--素材-->
 							<input type="hidden" name="material">
 							<input type="hidden" name="id" value="${ad.id}">
-						<tr>
+						<%--<tr>
 							<td class="titleTd">
 								<a style="margin-right: 10px;">投放区域:</a>
 							</td>
 							<td>
-								<%--<input style="line-height:20px; border: 1px solid gray; margin-left: 10px;"	name="compnay" type="text" />--%>
+								&lt;%&ndash;<input style="line-height:20px; border: 1px solid gray; margin-left: 10px;"	name="compnay" type="text" />&ndash;%&gt;
 								<select name="province" id="province" class="content"	style="width: 100px;" onchange="changeProvince()">
 									<option id="province2" selected="selected"></option>
 									<option value="340000">安徽</option>
@@ -246,14 +253,14 @@
 								<input style="width: 10%" class="content" name="launchBudget" value="${ad.launchBudget}" type="text" />元
 							</td>
 						</tr>
-						<%--<tr>
+						&lt;%&ndash;<tr>
 							<td class="titleTd">
 								<a style="margin-right: 10px;">投放预算:</a>
 							</td>
 							<td width="90%">
 								<input style="line-height:20px; border: 1px solid gray; margin-left: 10px; width: 70%"	name="email" type="text" />
 							</td>
-						</tr>--%>
+						</tr>&ndash;%&gt;
 						<tr>
 							<td class="titleTd">
 								<a style="margin-right: 10px;">每日消费:</a>
@@ -269,7 +276,7 @@
 								<td width="90%">
 									<input style="width: 10%" class="content" name="uv" value="${ad.uv}" type="text"/>uv
 								</td>
-							</tr>
+							</tr>--%>
 						<tr>
 							<td></td>
 							<td><input onclick="save()" type="button" style="text-align: center;margin: 5px;width: 10%;margin-left: 10px;" value="确认"/></td>
@@ -397,6 +404,11 @@
 		document.getElementById("newUpload2").removeChild(document.getElementById("div_sc"+o));
 	}
 	<!--投放素材-->
+	function downLoad(url){
+		var realUrl = '<c:url value="/upload/fileUpload/"/>'+url.name;
+		window.open(realUrl);
+
+	}
 
 	function upload(type){
 		var form =  $('#form1');
@@ -411,6 +423,11 @@
 					if(json.res == 'succ'){
 						alert("上传成功");
 						$('input[name="target"]').val(json.list);
+						var aa = "<span style='display: inline-block;width: 10px;'></span><input type='button' name='"+json.url+"' value='下载' onclick='downLoad(this)'/>";
+						$("#show_url").text(json.url);
+						$("#show_url").append(aa);
+						$("#show_url").show();
+
 					}else{
 						alert("上传失败")
 					}
@@ -426,6 +443,10 @@
 					if(json.res == 'succ'){
 						alert("上传成功");
 						$('input[name="material"]').val(json.list);
+						var url = '<c:url value="/upload/demoUpload/"/>';
+						var url2 = url+json.url
+						var img = '<img width="300px" src='+url2+'>';
+						$("#show_img").append(img);
 					}else{
 						alert("上传失败")
 					}

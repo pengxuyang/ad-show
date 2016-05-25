@@ -79,18 +79,18 @@
         <h1 id="timer" class="top-row-title2"></h1>
         <p><fmt:formatDate value="${currentDate}" pattern="yyyy年MM月dd日 E"/></p>
         <div class="top-row-bottom">
-            <p>B2B大数据精准营销 <b>创业板</b></p>
+            <p>&nbsp;</p>
         </div>
     </div>
     <div class="col-md-4 top-row-cell" id="today_show">
 
     </div>
     <div class="col-md-4 top-row-cell" >
-        <p>总计消费</p>
+        <p>&nbsp;</p>
+        <p>账户余额</p>
         <h1 class="top-row-title2">4809元</h1>
-        <p>账户余额：191元</p>
         <div class="top-row-bottom">
-            <p>预计明日消费：<b>0元</b></p>
+            <p>&nbsp;</p>
         </div>
     </div>
 </div>

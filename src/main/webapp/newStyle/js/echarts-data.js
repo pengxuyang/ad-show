@@ -475,14 +475,14 @@ var convertData = function (data) {
 
 option2 = {
     backgroundColor: '#404a59',
-    title: {
+    /*title: {
         text: '点击热点',
         subtext: 'real-time data',
         left: 'center',
         textStyle: {
             color: '#fff'
         }
-    },
+    },*/
     tooltip : {
         trigger: 'item'
     },

@@ -31,6 +31,8 @@ public class UploadController {
         Map resultMap = new HashMap<String,Object>();
         resultMap.put("res", "fail");
         List<String> list = new ArrayList<String>();
+        List<String> listUrl = new ArrayList<>();
+        String url = "";
         //创建一个通用的多部分解析器
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getServletContext());
         //判断 request 是否有文件上传,即多部分请求
@@ -75,8 +77,10 @@ public class UploadController {
                         material.setName(myFileName);
                         materialMapper.insertSelective(material);
                         int id = material.getId();
-
+                        listUrl.add(myFileName);
+                        url = myFileName;
                         list.add(String.valueOf(id));
+
                         System.out.println(pathAll);
                         //重命名上传后的文件名
                         //String fileName = "demoUpload" + file.getOriginalFilename();
@@ -94,6 +98,8 @@ public class UploadController {
         if(list.size()>0){
             resultMap.put("res","succ");
             resultMap.put("list",list);
+            resultMap.put("listUrl",listUrl);
+            resultMap.put("url",url);
         }
         return resultMap;
     }
@@ -105,6 +111,8 @@ public class UploadController {
         Map resultMap = new HashMap<String,Object>();
         resultMap.put("res", "fail");
         List<String> list = new ArrayList<String>();
+        //
+        String url ="";
         request.setCharacterEncoding("UTF-8");//你的编码格式
         //创建一个通用的多部分解析器
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getServletContext());
@@ -125,25 +133,26 @@ public class UploadController {
                     //如果名称不为“”,说明该文件存在，否则说明该文件不存在
                     if (myFileName.trim().length() > 0 ) {
                         //获取当前系统路径  项目路径
-                        String realPath = request.getSession().getServletContext().getRealPath("/upload/demoUpload");
+                        String realPath = request.getSession().getServletContext().getRealPath("/upload/fileUpload/");
                         //String fileId =  UUID.randomUUID().toString();
                         //String path = String.valueOf(year) + month + day
                         //        + "/" + fileId + "." + fileType;
-                        String pathAll = realPath + file.getOriginalFilename();
+                        String pathAll = realPath +"/"+ file.getOriginalFilename();
                         //String pathAll = realPath + path;
                         File distFile = new File(pathAll);
                         if (!distFile.getParentFile().exists())
                             distFile.getParentFile().mkdirs();
                         file.transferTo(distFile);
                         //String imgPath = request.getContextPath()+"/public/upload/"+filePath+path; //
-                        String url =  readTxtFile(pathAll);
+                        //String url =  readTxtFile(pathAll);
 
                         //读取的内容 在target 新建一条记录
                         Target target = new Target();
-                        target.setTargetUrl(url);
+                        target.setTargetUrl(myFileName);
                         int res = targetMapper.insertSelective(target);
                         int id = target.getId();
                         list.add(String.valueOf(id));
+                        url = myFileName;
                         //list.add(pathAll);
                         System.out.println("文件路径为:"+pathAll);
                         //重命名上传后的文件名
@@ -162,6 +171,7 @@ public class UploadController {
         if(list.size()>0){
             resultMap.put("res","succ");
             resultMap.put("list",list);
+            resultMap.put("url",url);
         }
         return resultMap;
     }

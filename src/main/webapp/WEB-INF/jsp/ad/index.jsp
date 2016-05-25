@@ -64,6 +64,9 @@
 								<a style="margin-right: 10px;">投放连接:</a>
 							</td>
 							<td width="90%">
+								<div id="show_url" onclick="" style="display: none">
+
+								</div>
 								<form id="form1" action="" method="post" enctype="multipart/form-data">
 								<div id="newUpload1" style="margin-top: 10px;">
 									<input class="easyui-filebox" name="file" data-options="buttonText:'选择文件'" style="width:30%"/>
@@ -80,6 +83,9 @@
 							</td>
 							<td width="90%">
 								<form id="form2" action="" method="post" enctype="multipart/form-data">
+									<div id="show_img">
+
+									</div>
 									<div id="newUpload2" style="margin-top: 10px;">
 										<input class="easyui-filebox" name="cs_file" data-options="buttonText:'选择文件'" style="width:30%"/>
 									</div>
@@ -249,14 +255,14 @@
 								<input style="width: 10%" class="content" name="pv" type="text"/>pv
 							</td>
 						</tr>--%>
-							<tr>
+							<%--<tr>
 								<td class="titleTd">
 									<a style="margin-right: 10px;">点击数:</a>
 								</td>
 								<td width="90%">
 									<input style="width: 10%" class="content" name="uv" type="text"/>次
 								</td>
-							</tr>
+							</tr>--%>
 						<tr>
 							<td></td>
 							<td><input type="button" onclick="save()" style="text-align: center;margin: 5px;width: 10%;margin-left: 10px;" value="确认"/></td>
@@ -335,6 +341,9 @@
 					if(json.res == 'succ'){
 						alert("上传成功");
 						$('input[name="target"]').val(json.list);
+						$("#show_url").text(json.url);
+						$("#show_url").show();
+
 					}else{
 						alert("上传失败")
 					}
@@ -350,6 +359,11 @@
 					if(json.res == 'succ'){
 						alert("上传成功");
 						$('input[name="material"]').val(json.list);
+						var url = '<c:url value="/upload/demoUpload/"/>';
+						var url2 = url+json.url
+						var img = '<img width="300px" src='+url2+'>';
+						$("#show_img").append(img);
+
 					}else{
 						alert("上传失败")
 					}

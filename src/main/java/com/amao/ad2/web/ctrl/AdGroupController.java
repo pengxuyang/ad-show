@@ -45,6 +45,8 @@ public class AdGroupController {
         }else{
             return "ad/index";
         }
+
+
         //素材信息
         MaterialExample materialExample = new MaterialExample();
         MaterialExample.Criteria criteriaMat = materialExample.createCriteria();
