@@ -64,22 +64,23 @@ public class AdGroupController {
     @Transactional
     @ResponseBody
     public String saveAd(HttpServletRequest request,String target,String material,
-                         AdGroup adGroup,String launchTimeStartbak,String launchTimeEndbak){
+                         AdGroup adGroup){
+        //,String launchTimeStartbak,String launchTimeEndbak
 
         User user = (User) request.getSession().getAttribute(Constants.SESSION_LOGIN_ATTRIBUTE);
         String[] targetids  =    target.split(",");
         String[] materialIds  =    material.split(",");
-        Date launchTimeStart =null;
+        /*Date launchTimeStart =null;
         Date launchTimeEnd = null;
         try {
             launchTimeStart = parse(launchTimeStartbak);
             launchTimeEnd = parse(launchTimeEndbak);
         } catch (ParseException e) {
             e.printStackTrace();
-        }
+        }*/
         adGroup.setUserId(user.getId());
-        adGroup.setLaunchTimeStart(launchTimeStart);
-        adGroup.setLaunchTimeEnd(launchTimeEnd);
+       /* adGroup.setLaunchTimeStart(launchTimeStart);
+        adGroup.setLaunchTimeEnd(launchTimeEnd);*/
         //执行adGroup的插入操作
         adGroupMapper.insertSelective(adGroup);
         //
