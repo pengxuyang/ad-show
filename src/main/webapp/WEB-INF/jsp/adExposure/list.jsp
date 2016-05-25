@@ -111,6 +111,7 @@ a{ text-decoration:none;}
 							</td>
 						</tr>
 					</table>
+					<div id="exposuregrid"></div>
 				</form>
 			</div>
 			<div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
@@ -185,11 +186,10 @@ a{ text-decoration:none;}
 		</div>
 	</div>
 	</div>
-<!-- 修改 -->		
+<!-- 修改 -->
+
 </body>
 <script type="text/javascript">
-
-
 
 //数据网格
 $('#dg').datagrid({
@@ -222,7 +222,7 @@ $('#dg').datagrid({
 				}else if(value == 'agent'){
 					return '客户代理';
 				}*/
-				return "<a onclick=''>点击查看</a>";
+				return "<a onclick='toexposure()'>点击查看</a>";
 			},align:'right'}
 	    ]]
 	});
@@ -289,5 +289,10 @@ function QueryData() {
             "type":$("input[name='qryType']").val()
         });
     }
+
+
+function toexposure(){
+	location.href = 'launch/toexposurelist';
+}
 </script>
 </html>

@@ -80,4 +80,11 @@ public class LaunchController {
         exposureMapper.updateByPrimaryKey(adExposure);
         return "succ";
     }
+
+    @RequestMapping(value = "toexposurelist")
+    public String toAdExposure(){
+        return "adexposure/adexposurelist";
+    }
+
+
 }
