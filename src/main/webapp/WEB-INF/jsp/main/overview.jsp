@@ -102,7 +102,7 @@
         <c:forEach items="${urls}" var="url">
             <div class="row">
                 <div class="col-xs-2">
-                    <img class="ico" src="http://${url.url}/favicon.ico"/>
+                    <img class="ico" src="<c:choose><c:when test="${empty url.icoUrl}">http://${url.url}/favicon.ico</c:when><c:otherwise>${url.icoUrl}</c:otherwise></c:choose>"/>
                 </div>
                 <div class="col-xs-10">
                     <div class="row">${url.url}</div>

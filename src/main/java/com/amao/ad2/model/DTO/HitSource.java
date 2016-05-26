@@ -5,6 +5,7 @@ package com.amao.ad2.model.DTO;
  */
 public class HitSource {
 	private String url;
+	private String icoUrl;
 	private int hit;
 	private double percent;
 
@@ -14,6 +15,14 @@ public class HitSource {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public String getIcoUrl() {
+		return icoUrl;
+	}
+
+	public void setIcoUrl(String icoUrl) {
+		this.icoUrl = icoUrl;
 	}
 
 	public int getHit() {

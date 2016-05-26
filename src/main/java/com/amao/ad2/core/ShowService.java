@@ -44,7 +44,11 @@ public class ShowService {
 		final Random random = new Random();
 		for (String url : urls) {
 			final HitSource hs = new HitSource();
-			hs.setUrl(url);
+			final String[] words = url.split("=");
+			hs.setUrl(words[0]);
+			if (words.length > 1) {
+				hs.setIcoUrl(words[1]);
+			}
 			hs.setHit(random.nextInt(1000));
 			hitSources.add(hs);
 		}

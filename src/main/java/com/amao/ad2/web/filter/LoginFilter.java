@@ -22,7 +22,7 @@ import java.io.IOException;
  * @since 2014/6/18*/
 
 
-@WebFilter(filterName = "loginFilter", urlPatterns = {"/panel/*"})
+@WebFilter(filterName = "loginFilter", urlPatterns = {"/panel/*","/user/*","/launch/*","/file/*"})
 public class LoginFilter implements Filter {
     private String contextPath = null;
 
