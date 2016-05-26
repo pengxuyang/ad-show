@@ -65,10 +65,10 @@ a{ text-decoration:none;}
 				<form id="addForm" method="post">
 					<table class="artTable" style="border-collapse:collapse;width: 100%;">
 						<tr>
-							<td width="10%" class="titleTd">
+							<td width="20%" class="titleTd">
 								<a style="margin-right: 10px;">手机号:</a>
 							</td>
-							<td width="90%">
+							<td width="79%">
 								<input style="line-height:20px; border: 1px solid gray; margin-left: 10px; width: 70%"	name="mobilephone" type="text" />
 							</td>
 						</tr>
@@ -127,13 +127,13 @@ a{ text-decoration:none;}
 		<div class="easyui-layout" data-options="fit:true">
 			<div data-options="region:'center'" style="padding:10px;">
 			<form id="modForm" method="post">
-				<input id='modId'	name='articleId' type="hidden">
+				<input id='modId'	name='id' type="hidden">
 				<table class="artTable" style="border-collapse:collapse;width: 100%;">
 					<tr>
-						<td width="10%" class="titleTd">
+						<td width="20%" class="titleTd">
 							<a style="margin-right: 10px;">手机号:</a>
 						</td>
-						<td width="90%">
+						<td width="79%">
 							<input id="mod_id" style="line-height:20px; border: 1px solid gray; margin-left: 10px; width: 70%"	name="mobilephone" type="text" />
 						</td>
 					</tr>
@@ -224,23 +224,29 @@ $('#dg').datagrid({
 	});
 
 
-/*//新增提交from表单
+//新增提交from表单
 function submitArt(){
 	$('#addForm').form('submit', {
 		url:"<c:url value="/user/add"/>",
 		onSubmit: function(){
 		},
 		success:function(data){
-			$('#dg').datagrid('reload');
-			$('#w').window('close');
+			if(data == '0'){
+				alert("添加失败，请确认您的手机号是否重复");
+			}else{
+				$('#dg').datagrid('reload');
+				$('#w').window('close');
+			}
+
 		}
 	});
-}*/
+}
 
 function modArt(){
 	var row = $('#dg').datagrid('getSelected');
 	if (row){
 		 //$.messager.alert('Info', row.title+','+row.type+','+row.content);
+		$('#modId').val(row.id);
 		 $('#mod_id').val(row.mobilephone);
 		 $('#mod_pwd').val(row.password);
 		 $('#mod_compnay').val(row.compnay);
@@ -251,9 +257,9 @@ function modArt(){
 
 //修改提交from表单
 function modSubmitArt(){
-	$('#easyui_ditor_mod').val(editor.html());
+	/*$('#easyui_ditor_mod').val(editor.html());*/
 	$('#modForm').form('submit', {
-	    url:"${pageContext.request.contextPath }/art/mod",
+	    url:"${pageContext.request.contextPath }/user/mod",
 	    onSubmit: function(){
 	    },
 	    success:function(data){
@@ -270,7 +276,7 @@ function delArt(){
 	$.messager.confirm('提示框', '你确定要删除吗?',function(r){
 		if(r){
 			$.post(
-			"<c:url value="/launch/delAdE"/>",
+			"<c:url value="/user/del"/>",
 			{id:row.id},
 			function(){
 				$('#dg').datagrid('reload');

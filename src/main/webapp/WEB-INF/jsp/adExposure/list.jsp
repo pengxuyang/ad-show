@@ -72,10 +72,10 @@ a{ text-decoration:none;}
 					<table class="artTable" style="border-collapse:collapse;width: 100%;">
 						<input type="hidden" name="id" id="mod_addAdId" />
 						<tr>
-							<td width="10%" class="titleTd">
+							<td width="20%" class="titleTd">
 								<a style="margin-right: 10px;">点击数:</a>
 							</td>
-							<td width="90%">
+							<td width="79%">
 								<input style="line-height:20px; border: 1px solid gray; margin-left: 10px; width: 70%"	name="uv" type="text" />
 							</td>
 						</tr>

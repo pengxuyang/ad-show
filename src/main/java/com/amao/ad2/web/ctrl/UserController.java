@@ -52,14 +52,25 @@ public class UserController {
     @Transactional
     public String addUser(User user,HttpServletRequest request){
         User useradmin = (User) request.getSession().getAttribute(Constants.SESSION_LOGIN_ATTRIBUTE);
-        user.setCreateTime(new Date());
-        String pwd= user.getPassword();
-        user.setPassword(Hash.md5(pwd));
-        int res =  userService.addUser(user);
-        UserGroup userGroup = new UserGroup();
-        userGroup.setOwnerUserId(useradmin.getId());
-        userGroup.setClientUserId(user.getId());
-        userGroupMapper.insertSelective(userGroup);
+        int res = 0;
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andMobilephoneEqualTo(user.getMobilephone());
+        List<User> users = userMapper.selectByExample(userExample);
+        if(users.size() >= 1){
+
+        }else {
+            user.setCreateTime(new Date());
+            String pwd= user.getPassword();
+            user.setPassword(Hash.md5(pwd));
+            res =  userService.addUser(user);
+            UserGroup userGroup = new UserGroup();
+            userGroup.setOwnerUserId(useradmin.getId());
+            userGroup.setClientUserId(user.getId());
+            userGroupMapper.insertSelective(userGroup);
+        }
+
+
         return String.valueOf(res) ;
     }
     @RequestMapping("del")
@@ -76,6 +87,8 @@ public class UserController {
     }
 
 
+    @RequestMapping("mod")
+    @ResponseBody
     public String modUser(User user){
         return String.valueOf(userService.modUser(user));
     }
